@@ -1,0 +1,5 @@
+@import url(content.css?Eternia=v5.2.0);
+@import url(small-x.css?Eternia=v5.2.0) only screen and (max-width: 768px);
+@import url(small.css?Eternia=v5.2.0) only screen and (min-width: 768px);
+@import url(medium.css?Eternia=v5.2.0) only screen and (min-width: 960px);
+@import url(big.css?Eternia=v5.2.0) only screen and (min-width: 1200px);
