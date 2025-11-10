@@ -1,0 +1,23 @@
+services:
+  home-love-db:
+    image: mysql:8.0
+    container_name: home-love-db
+    restart: always
+    volumes:
+      - ./data520/db:/var/lib/mysql
+      - ./data520/love_db.sql:/var/love_db.sql
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=love1314520
+      - MYSQL_DATABASE=love_db
+      - MYSQL_ROOT_PASSWORD=love1314520
+
+  home-love:
+    image: love:v520
+    container_name: home-love
+    restart: always
+    ports:
+      - 1314:1314
+    depends_on:
+      - home-love-db

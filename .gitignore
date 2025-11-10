@@ -1,0 +1,42 @@
+# 敏感配置文件
+.env
+*.env
+!*.env.example
+
+# 数据库文件
+data520/db/
+*.sql.bak
+*.sql~
+
+# 日志文件
+*.log
+logs/
+likegirl-stable/logs/
+
+# IDE和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# 临时文件
+*.tmp
+*.temp
+*.cache
+
+# 备份文件
+*.bak
+*.backup
+*~
+
+# 系统文件
+Thumbs.db
+.DS_Store
+
+# docker持久化目录
+data520

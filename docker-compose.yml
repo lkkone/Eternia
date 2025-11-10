@@ -1,0 +1,39 @@
+services:
+  home-love-db:
+    image: mariadb:10.11                # LTS，原生支持 arm64
+    container_name: home-love-db
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      MARIADB_ROOT_PASSWORD: love1314520
+      MARIADB_DATABASE: love_db
+      # MARIADB_USER 用于创建额外用户，这里只用 root，不需要额外用户
+    command: >
+      mysqld
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --skip-character-set-client-handshake
+      --innodb_strict_mode=ON
+    volumes:
+      - ./data520/db:/var/lib/mysql
+      - ./data520/love_db_fixed.sql:/docker-entrypoint-initdb.d/00_love_db.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-plove1314520"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+  home-love:
+    image: love:v520
+    container_name: home-love
+    restart: always
+    depends_on:
+      home-love-db:
+        condition: service_healthy
+    ports:
+      - "1314:1314"
+    environment:
+      DB_HOST: home-love-db
+      DB_NAME: love_db
+      DB_USER: root
+      DB_PASS: love1314520
