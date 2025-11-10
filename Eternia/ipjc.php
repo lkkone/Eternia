@@ -7,7 +7,7 @@ $stmt_ip = $connect->prepare($ipchaxun);
 if ($stmt_ip) {
     $stmt_ip->execute();
     $ipres = $stmt_ip->get_result();
-    while ($IPinfo = mysqli_fetch_array($ipres)) {
+while ($IPinfo = mysqli_fetch_array($ipres)) {
 
     $iplist = $IPinfo['State'];
 

@@ -3,9 +3,9 @@
 include_once 'database.php';
 include_once 'function.php';
 
-$name = trim($_POST['name']);
-$qq = trim($_POST['qq']);
-$text = trim($_POST['text']);
+$name = trim($_POST['name'] ?? '');
+$qq = trim($_POST['qq'] ?? '');
+$text = trim($_POST['text'] ?? '');
 $time = time();
 
 // 获取IP地址（function.php 中已定义 $Filter_IP，但需要确保在使用前已定义）

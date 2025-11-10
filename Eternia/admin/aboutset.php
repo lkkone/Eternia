@@ -6,7 +6,7 @@ $stmt_about = $connect->prepare($absql);
 if ($stmt_about) {
     $stmt_about->execute();
     $resab = $stmt_about->get_result();
-    $about = mysqli_fetch_array($resab);
+$about = mysqli_fetch_array($resab);
     if (!$about) {
         $about = [];
     }

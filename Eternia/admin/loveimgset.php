@@ -41,7 +41,7 @@ if ($stmt_img) {
                     <?php
                     $SerialNumber = 0;
                     if ($resImg) {
-                        while ($list = mysqli_fetch_array($resImg)) {
+                    while ($list = mysqli_fetch_array($resImg)) {
                         $SerialNumber++;
                         ?>
                         <tr>
@@ -67,7 +67,7 @@ if ($stmt_img) {
                     <?php
                     }
                     $stmt_img->close();
-                }
+                    }
                     ?>
                     </tbody>
                 </table>

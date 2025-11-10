@@ -39,7 +39,7 @@ if ($stmt_warning) {
                     <?php
                     $SerialNumber = 0;
                     if ($warning_result) {
-                        while ($IPinfo = mysqli_fetch_array($warning_result)) {
+                    while ($IPinfo = mysqli_fetch_array($warning_result)) {
                         $SerialNumber++;
                         ?>
                         <tr>

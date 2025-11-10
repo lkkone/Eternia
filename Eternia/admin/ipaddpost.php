@@ -6,8 +6,8 @@ include_once 'connect.php';
 include_once 'function.php';
 
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
-    $ip = trim($_POST['ipdz']);
-    $bz = trim($_POST['bz']);
+    $ip = trim($_POST['ipdz'] ?? '');
+    $bz = trim($_POST['bz'] ?? '');
     $time = gmdate("Y-m-d H:i:s", time() + 8 * 3600);
     $ipgsd = get_ip_city_New($ip);
 

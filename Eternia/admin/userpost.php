@@ -4,15 +4,15 @@ $file = $_SERVER['PHP_SELF'];
 include_once 'connect.php';
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
 
-    $adminName = trim($_POST['adminName']);
-    $pw = trim($_POST['pw']);
-    $user = trim($_POST['userQQ']);
-    $name = trim($_POST['userName']);
-    $Webanimation = trim($_POST['Webanimation']);
-    $cssCon = trim($_POST['cssCon']);
-    $headCon = htmlspecialchars(trim($_POST['headCon']), ENT_QUOTES);
-    $footerCon = htmlspecialchars(trim($_POST['footerCon']), ENT_QUOTES);
-    $SCode = trim($_POST['SCode']);
+    $adminName = trim($_POST['adminName'] ?? '');
+    $pw = trim($_POST['pw'] ?? '');
+    $user = trim($_POST['userQQ'] ?? '');
+    $name = trim($_POST['userName'] ?? '');
+    $Webanimation = trim($_POST['Webanimation'] ?? '');
+    $cssCon = trim($_POST['cssCon'] ?? '');
+    $headCon = htmlspecialchars(trim($_POST['headCon'] ?? ''), ENT_QUOTES);
+    $footerCon = htmlspecialchars(trim($_POST['footerCon'] ?? ''), ENT_QUOTES);
+    $SCode = trim($_POST['SCode'] ?? '');
 
     $pattern = '/[`~!#$^&*()=|{}:;,\[\].<>\/?\~！#￥……&*（）——|{}【】；：""\'。，、？]/';
 

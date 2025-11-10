@@ -4,10 +4,10 @@ $file = $_SERVER['PHP_SELF'];
 include_once 'connect.php';
 
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
-    $id = trim($_POST['id']);
-    $imgText = htmlspecialchars(trim($_POST['imgText']), ENT_QUOTES);
-    $imgDatd = trim($_POST['imgDatd']);
-    $imgUrl = htmlspecialchars(trim($_POST['imgUrl']), ENT_QUOTES);
+    $id = trim($_POST['id'] ?? '');
+    $imgText = htmlspecialchars(trim($_POST['imgText'] ?? ''), ENT_QUOTES);
+    $imgDatd = trim($_POST['imgDatd'] ?? '');
+    $imgUrl = htmlspecialchars(trim($_POST['imgUrl'] ?? ''), ENT_QUOTES);
 
     // 使用预处理语句防止SQL注入
     $stmt = $connect->prepare("UPDATE loveimg SET imgText = ?, imgDatd = ?, imgUrl = ? WHERE id = ?");

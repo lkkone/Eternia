@@ -7,7 +7,7 @@ $stmt_count = $connect->prepare($nub);
 if ($stmt_count) {
     $stmt_count->execute();
     $res = $stmt_count->get_result();
-    $leav = mysqli_fetch_array($res);
+$leav = mysqli_fetch_array($res);
     $shu = isset($leav['shu']) ? $leav['shu'] : 0;
     $stmt_count->close();
 } else {
@@ -19,8 +19,8 @@ include_once 'database.php';
 $liuyan = "SELECT * FROM leaving order by id desc";
 $stmt = $conn->prepare($liuyan);
 if ($stmt) {
-    $stmt->bind_result($id, $name, $qq, $text, $time, $ip, $city);
-    $result = $stmt->execute();
+$stmt->bind_result($id, $name, $qq, $text, $time, $ip, $city);
+$result = $stmt->execute();
     if (!$result) {
         error_log("留言查询失败: " . $stmt->error);
     }
@@ -76,7 +76,7 @@ if ($stmt) {
                             <?php
                             $SerialNumber = 0;
                             if ($stmt) {
-                                while ($stmt->fetch()) {
+                            while ($stmt->fetch()) {
                                 $SerialNumber++;
 
                                 ?>

@@ -46,7 +46,7 @@ if ($stmt_ip) {
                     <?php
                     $SerialNumber = 0;
                     if ($ip_result) {
-                        while ($IPinfo = mysqli_fetch_array($ip_result)) {
+                    while ($IPinfo = mysqli_fetch_array($ip_result)) {
                         $SerialNumber++;
                         ?>
                         <tr>

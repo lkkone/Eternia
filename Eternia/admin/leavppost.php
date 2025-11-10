@@ -6,8 +6,8 @@ $file = $_SERVER['PHP_SELF'];
 include_once 'connect.php';
 
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
-    $jiequ = trim($_POST['jiequ']);
-    $lanjiezf = htmlspecialchars(trim($_POST['lanjiezf']), ENT_QUOTES);
+    $jiequ = trim($_POST['jiequ'] ?? '');
+    $lanjiezf = htmlspecialchars(trim($_POST['lanjiezf'] ?? ''), ENT_QUOTES);
 
     // 使用预处理语句防止SQL注入
     $stmt = $connect->prepare("UPDATE leavset SET jiequ = ?, lanjiezf = ?");

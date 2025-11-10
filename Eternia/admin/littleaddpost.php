@@ -4,9 +4,9 @@ $file = $_SERVER['PHP_SELF'];
 include_once 'connect.php';
 
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
-    $title = htmlspecialchars(trim($_POST['articletitle']), ENT_QUOTES);
-    $text = trim($_POST['articletext']);
-    $name = trim($_POST['articlename']);
+    $title = htmlspecialchars(trim($_POST['articletitle'] ?? ''), ENT_QUOTES);
+    $text = trim($_POST['articletext'] ?? '');
+    $name = trim($_POST['articlename'] ?? '');
     $time = gmdate("Y-m-d", time() + 8 * 3600);
     // 使用预处理语句防止SQL注入
     $stmt = $connect->prepare("INSERT INTO article (articletitle, articletext, articletime, articlename) VALUES (?, ?, ?, ?)");

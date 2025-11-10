@@ -21,15 +21,8 @@ if (mysqli_num_rows($loginresult)) {
     exit();
 }
 
-// 使用预处理语句查询 login 表（虽然前面已查询，但为保持一致性仍使用预处理）
-$stmt = $connect->prepare("SELECT * FROM login");
-if ($stmt) {
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if (mysqli_num_rows($result)) {
-        $login = mysqli_fetch_array($result);
-    }
-    $stmt->close();
+if (!isset($login)) {
+    $login = [];
 }
 
 // 使用预处理语句查询 text 表
@@ -39,8 +32,12 @@ if ($stmt) {
     $result = $stmt->get_result();
     if (mysqli_num_rows($result)) {
         $text = mysqli_fetch_array($result);
+    } else {
+        $text = [];
     }
     $stmt->close();
+} else {
+    $text = [];
 }
 
 // 使用预处理语句查询 diyset 表
@@ -50,8 +47,12 @@ if ($stmt) {
     $result = $stmt->get_result();
     if (mysqli_num_rows($result)) {
         $diy = mysqli_fetch_array($result);
+    } else {
+        $diy = [];
     }
     $stmt->close();
+} else {
+    $diy = [];
 }
 ?>
 
@@ -61,7 +62,7 @@ if ($stmt) {
 
 <head>
     <meta charset="utf-8" />
-    <title>后台管理 — <?php echo $text['title'] ?></title>
+    <title>后台管理 — <?php echo isset($text['title']) ? $text['title'] : 'Eternia' ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -153,10 +154,10 @@ if ($stmt) {
             <!-- LOGO -->
             <a href="/admin/index.php" class="topnav-logo">
                 <span class="topnav-logo-lg">
-                    <?php echo $text['title'] ?>
+                    <?php echo isset($text['title']) ? $text['title'] : 'Eternia' ?>
                 </span>
                 <span class="topnav-logo-sm">
-                    <?php echo $text['title'] ?>
+                    <?php echo isset($text['title']) ? $text['title'] : 'Eternia' ?>
                 </span>
             </a>
 
@@ -173,11 +174,11 @@ if ($stmt) {
                     <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown"
                         id="topbar-userdrop" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="account-user-avatar">
-                            <img src="https://q1.qlogo.cn/g?b=qq&nk=<?php echo $text['userQQ'] ?>&s=640"
+                            <img src="https://q1.qlogo.cn/g?b=qq&nk=<?php echo isset($text['userQQ']) ? $text['userQQ'] : '' ?>&s=640"
                                 alt="user-image" class="rounded-circle">
                         </span>
                         <span>
-                            <span class="account-user-name"><?php echo $text['userName'] ?></span>
+                            <span class="account-user-name"><?php echo isset($text['userName']) ? $text['userName'] : '' ?></span>
                             <span class="account-position">操作</span>
                         </span>
                     </a>
@@ -224,9 +225,9 @@ if ($stmt) {
             <div class="left-side-menu">
                 <div class="leftbar-user">
                     <a href="#">
-                        <img src="https://q1.qlogo.cn/g?b=qq&nk=<?php echo $text['userQQ'] ?>&s=640" alt="user-image"
+                        <img src="https://q1.qlogo.cn/g?b=qq&nk=<?php echo isset($text['userQQ']) ? $text['userQQ'] : '' ?>&s=640" alt="user-image"
                             height="42" class="rounded-circle shadow-sm">
-                        <span class="leftbar-user-name"><?php echo $text['title'] ?></span>
+                        <span class="leftbar-user-name"><?php echo isset($text['title']) ? $text['title'] : 'Eternia' ?></span>
                     </a>
                 </div>
 

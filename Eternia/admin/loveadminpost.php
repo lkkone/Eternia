@@ -14,11 +14,11 @@ function checkQQ($qq)
 include_once 'connect.php';
 
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
-    $boy = htmlspecialchars(trim($_POST['boy']));
-    $girl = htmlspecialchars(trim($_POST['girl']));
-    $boyimg = htmlspecialchars(trim($_POST['boyimg']), ENT_QUOTES);
-    $girlimg = htmlspecialchars(trim($_POST['girlimg']), ENT_QUOTES);
-    $startTime = trim($_POST['startTime']);
+    $boy = htmlspecialchars(trim($_POST['boy'] ?? ''));
+    $girl = htmlspecialchars(trim($_POST['girl'] ?? ''));
+    $boyimg = htmlspecialchars(trim($_POST['boyimg'] ?? ''), ENT_QUOTES);
+    $girlimg = htmlspecialchars(trim($_POST['girlimg'] ?? ''), ENT_QUOTES);
+    $startTime = trim($_POST['startTime'] ?? '');
 
     if (checkQQ($boyimg) && checkQQ($girlimg)) {
         // 使用预处理语句防止SQL注入

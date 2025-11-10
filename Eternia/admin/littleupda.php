@@ -5,9 +5,9 @@ $file = $_SERVER['PHP_SELF'];
 include_once 'connect.php';
 
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
-    $id = $_POST['id'];
-    $title = htmlspecialchars(trim($_POST['articletitle']), ENT_QUOTES);
-    $text = trim($_POST['articletext']);
+    $id = $_POST['id'] ?? 0;
+    $title = htmlspecialchars(trim($_POST['articletitle'] ?? ''), ENT_QUOTES);
+    $text = trim($_POST['articletext'] ?? '');
 
     // 使用预处理语句防止SQL注入
     $stmt = $connect->prepare("UPDATE article SET articletitle = ?, articletext = ? WHERE id = ?");

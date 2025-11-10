@@ -5,9 +5,9 @@ $file = $_SERVER['PHP_SELF'];
 include_once 'connect.php';
 
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
-    $adminName = trim($_POST['adminName']);
-    $icp = trim($_POST['icp']);
-    $Copyright = trim($_POST['Copyright']);
+    $adminName = trim($_POST['adminName'] ?? '');
+    $icp = trim($_POST['icp'] ?? '');
+    $Copyright = trim($_POST['Copyright'] ?? '');
 
     // 使用预处理语句防止SQL注入
     $stmt = $connect->prepare("UPDATE text SET icp = ?, Copyright = ?");

@@ -1,14 +1,16 @@
 <?php
 session_start();
 
-$name = htmlspecialchars(trim($_POST['eventname']),ENT_QUOTES);
+$name = htmlspecialchars(trim($_POST['eventname'] ?? ''),ENT_QUOTES);
 $file = $_SERVER['PHP_SELF'];
-if ($_POST['img'] === 0) {
+$imgValue = $_POST['img'] ?? 0;
+if ($imgValue === 0 || $imgValue === '0') {
     $img = 0;
 } else {
-    $img = htmlspecialchars($_POST['img'],ENT_QUOTES);
+    $img = htmlspecialchars($imgValue,ENT_QUOTES);
 }
-if ($_POST['icon'] == 1) {
+$iconValue = $_POST['icon'] ?? 0;
+if ($iconValue == 1 || $iconValue === '1') {
     $icon = 1;
 } else {
     $icon = 0;

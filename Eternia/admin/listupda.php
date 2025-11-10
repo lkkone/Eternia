@@ -1,18 +1,18 @@
 <?php
 session_start();
 
-$name = htmlspecialchars(trim($_POST['eventname']),ENT_QUOTES);
-$icon = $_POST['icon'];
-$id = $_POST['id'];
-$img = htmlspecialchars($_POST['imgurl'],ENT_QUOTES);
+$name = htmlspecialchars(trim($_POST['eventname'] ?? ''),ENT_QUOTES);
+$icon = $_POST['icon'] ?? 0;
+$id = $_POST['id'] ?? 0;
+$imgurl = $_POST['imgurl'] ?? '';
 $file = $_SERVER['PHP_SELF'];
 include_once 'connect.php';
-if (!empty($img)) {
-    $img = htmlspecialchars($_POST['imgurl'],ENT_QUOTES);
+if (!empty($imgurl)) {
+    $img = htmlspecialchars($imgurl,ENT_QUOTES);
 } else {
     $img = 0;
 }
-if (!$icon) {
+if (!$icon || $icon === '0' || $icon === 0) {
     $icon = 0;
 } else {
     $icon = $_POST['icon'];

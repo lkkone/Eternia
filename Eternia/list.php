@@ -30,7 +30,7 @@ if ($stmt_list) {
                         <div class="lovelist ">
                             <?php
                             if ($reslist) {
-                                while ($list = mysqli_fetch_array($reslist)) {
+                            while ($list = mysqli_fetch_array($reslist)) {
                                 ?>
                                 <li class="cike">
                                     <?php if ($list['icon']) { ?><i class="iconfont icon-chenggong2 com"></i> <?php } ?>

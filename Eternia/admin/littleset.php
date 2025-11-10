@@ -45,7 +45,7 @@ if ($stmt_article) {
                         <?php
                         $SerialNumber = 0;
                         if ($resarticle) {
-                            while ($info = mysqli_fetch_array($resarticle)) {
+                        while ($info = mysqli_fetch_array($resarticle)) {
                             $SerialNumber++;
                             ?>
                             <tr>

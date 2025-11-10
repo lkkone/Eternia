@@ -4,12 +4,12 @@ $file = $_SERVER['PHP_SELF'];
 include_once 'connect.php';
 
 if (isset($_SESSION['loginadmin']) && $_SESSION['loginadmin'] <> '') {
-    $title = htmlspecialchars(trim($_POST['title']), ENT_QUOTES);
-    $logo = htmlspecialchars(trim($_POST['logo']), ENT_QUOTES);
-    $writing = htmlspecialchars(trim($_POST['writing']), ENT_QUOTES);
-    $WebPjax = trim($_POST['WebPjax']);
-    $WebBlur = trim($_POST['WebBlur']);
-    $headerBarShow = isset($_POST['headerBarShow']) ? trim($_POST['headerBarShow']) : '2';
+    $title = htmlspecialchars(trim($_POST['title'] ?? ''), ENT_QUOTES);
+    $logo = htmlspecialchars(trim($_POST['logo'] ?? ''), ENT_QUOTES);
+    $writing = htmlspecialchars(trim($_POST['writing'] ?? ''), ENT_QUOTES);
+    $WebPjax = trim($_POST['WebPjax'] ?? '');
+    $WebBlur = trim($_POST['WebBlur'] ?? '');
+    $headerBarShow = trim($_POST['headerBarShow'] ?? '2');
 
     // 使用预处理语句防止SQL注入
     $stmt = $connect->prepare("UPDATE text SET title = ?, logo = ?, writing = ? WHERE id = 1");

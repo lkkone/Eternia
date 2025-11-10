@@ -7,7 +7,7 @@ $stmt_set = $connect->prepare($leavset);
 if ($stmt_set) {
     $stmt_set->execute();
     $Set = $stmt_set->get_result();
-    $Setinfo = mysqli_fetch_array($Set);
+$Setinfo = mysqli_fetch_array($Set);
     if (!$Setinfo) {
         $Setinfo = [];
     }

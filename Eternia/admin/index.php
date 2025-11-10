@@ -132,7 +132,7 @@ include_once "lg_info.php";
                         <tbody>
                             <?php
                             if ($resliuyan) {
-                                while ($info = mysqli_fetch_array($resliuyan)) {
+                            while ($info = mysqli_fetch_array($resliuyan)) {
                                 ?>
                                 <tr>
                                     <td>

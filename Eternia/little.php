@@ -26,7 +26,7 @@ if ($stmt_article) {
             <div class="row central central-800">
                 <?php
                 if ($resarticle) {
-                    while ($info = mysqli_fetch_array($resarticle)) {
+                while ($info = mysqli_fetch_array($resarticle)) {
                     ?>
                     <div
                         class="card col-lg-12 col-md-12 col-sm-12 col-sm-x-12 <?php if ($text['Animation'] == "1") { ?>animated fadeInUp delay-03s<?php } ?>">

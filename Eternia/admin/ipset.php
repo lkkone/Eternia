@@ -7,7 +7,7 @@ $stmt_ip = $connect->prepare($ipchaxun);
 if ($stmt_ip) {
     $stmt_ip->execute();
     $ipres = $stmt_ip->get_result();
-    $IPinfo = mysqli_fetch_array($ipres);
+$IPinfo = mysqli_fetch_array($ipres);
     if (!$IPinfo) {
         $IPinfo = [];
     }

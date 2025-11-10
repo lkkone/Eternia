@@ -42,7 +42,7 @@ if ($stmt_list) {
                     <?php
                     $SerialNumber = 0;
                     if ($reslist) {
-                        while ($list = mysqli_fetch_array($reslist)) {
+                    while ($list = mysqli_fetch_array($reslist)) {
                         $SerialNumber++;
                         ?>
                         <tr>
