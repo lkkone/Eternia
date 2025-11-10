@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+include_once 'admin/config_db.php';
 include ("ipjc.php");
 include_once ("ip.php");
 include_once 'admin/connect.php';

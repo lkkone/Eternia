@@ -1,6 +1,6 @@
 <?php
+include_once __DIR__.'/config_db.php';
 include ($_SERVER['DOCUMENT_ROOT'] . '/ipjc.php');
-error_reporting(0);
 include_once 'connect.php';
 include_once 'function.php';
 $stmt = $connect->prepare("SELECT * FROM login WHERE user = ?");

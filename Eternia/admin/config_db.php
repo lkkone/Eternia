@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 header("Content-Type:text/html; charset=utf8");
 
 $db_address = getenv('DB_HOST') ?: "home-love-db";

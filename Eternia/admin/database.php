@@ -1,6 +1,4 @@
 <?php
-error_reporting(0);
-header("Content-Type:text/html; charset=utf8");
 include_once __DIR__.'/config_db.php';
 $conn = new mysqli($db_address,$db_username,$db_password,$db_name);
 

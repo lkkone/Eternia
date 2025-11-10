@@ -8,23 +8,30 @@ $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
 $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 6;
 $offset = ($page - 1) * $limit;
 
-// 查询总数
-$totalRes = $connect->query("SELECT COUNT(*) as total FROM loveimg");
-$total = $totalRes->fetch_assoc()['total'];
-
-// 预处理分页查询
-$stmt = $connect->prepare("SELECT imgUrl, imgDatd, imgText FROM loveimg ORDER BY id DESC LIMIT ?, ?");
-$stmt->bind_param("ii", $offset, $limit);
-$stmt->execute();
-$result = $stmt->get_result();
+$total = 0;
+$stmt_count = $connect->prepare("SELECT COUNT(*) as total FROM loveimg");
+if ($stmt_count) {
+    $stmt_count->execute();
+    $totalRes = $stmt_count->get_result();
+    $totalRow = $totalRes->fetch_assoc();
+    $total = isset($totalRow['total']) ? intval($totalRow['total']) : 0;
+    $stmt_count->close();
+}
 
 $data = [];
-while ($row = $result->fetch_assoc()) {
-    $data[] = [
-        'img' => $row['imgUrl'],
-        'date' => $row['imgDatd'],
-        'text' => $row['imgText']
-    ];
+$stmt = $connect->prepare("SELECT imgUrl, imgDatd, imgText FROM loveimg ORDER BY id DESC LIMIT ?, ?");
+if ($stmt) {
+    $stmt->bind_param("ii", $offset, $limit);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $data[] = [
+            'img' => $row['imgUrl'],
+            'date' => $row['imgDatd'],
+            'text' => $row['imgText']
+        ];
+    }
+    $stmt->close();
 }
 
 echo json_encode([
