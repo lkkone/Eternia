@@ -3,9 +3,11 @@
 include_once 'admin/connect.php';
 
 $ipchaxun = "select * from iperror";
-$ipres = mysqli_query($connect, $ipchaxun);
-
-while ($IPinfo = mysqli_fetch_array($ipres)) {
+$stmt_ip = $connect->prepare($ipchaxun);
+if ($stmt_ip) {
+    $stmt_ip->execute();
+    $ipres = $stmt_ip->get_result();
+    while ($IPinfo = mysqli_fetch_array($ipres)) {
 
     $iplist = $IPinfo['State'];
 
@@ -17,4 +19,6 @@ while ($IPinfo = mysqli_fetch_array($ipres)) {
         die ("<script>alert('你的IP($ip)已被封禁，禁止访问本页面');location.href = 'error.php';</script>");
 
     }
+    }
+    $stmt_ip->close();
 }

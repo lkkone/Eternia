@@ -2,7 +2,13 @@
 session_start();
 include_once 'nav.php';
 $loveimg = "select * from loveimg order by id desc";
-$resImg = mysqli_query($connect, $loveimg);
+$stmt_img = $connect->prepare($loveimg);
+if ($stmt_img) {
+    $stmt_img->execute();
+    $resImg = $stmt_img->get_result();
+} else {
+    $resImg = null;
+}
 ?>
 
 
@@ -34,7 +40,8 @@ $resImg = mysqli_query($connect, $loveimg);
                     <tbody>
                     <?php
                     $SerialNumber = 0;
-                    while ($list = mysqli_fetch_array($resImg)) {
+                    if ($resImg) {
+                        while ($list = mysqli_fetch_array($resImg)) {
                         $SerialNumber++;
                         ?>
                         <tr>
@@ -59,6 +66,8 @@ $resImg = mysqli_query($connect, $loveimg);
                         </tr>
                     <?php
                     }
+                    $stmt_img->close();
+                }
                     ?>
                     </tbody>
                 </table>

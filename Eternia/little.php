@@ -2,7 +2,13 @@
 include_once 'head.php';
 $time = gmdate("Y-m-d", time() + 8 * 3600);
 $article = "select * from article order by id desc";
-$resarticle = mysqli_query($connect, $article);
+$stmt_article = $connect->prepare($article);
+if ($stmt_article) {
+    $stmt_article->execute();
+    $resarticle = $stmt_article->get_result();
+} else {
+    $resarticle = null;
+}
 ?>
 
 <head>
@@ -19,7 +25,8 @@ $resarticle = mysqli_query($connect, $article);
             </div>
             <div class="row central central-800">
                 <?php
-                while ($info = mysqli_fetch_array($resarticle)) {
+                if ($resarticle) {
+                    while ($info = mysqli_fetch_array($resarticle)) {
                     ?>
                     <div
                         class="card col-lg-12 col-md-12 col-sm-12 col-sm-x-12 <?php if ($text['Animation'] == "1") { ?>animated fadeInUp delay-03s<?php } ?>">
@@ -41,6 +48,8 @@ $resarticle = mysqli_query($connect, $article);
                         </div>
                     </div>
                     <?php
+                    }
+                    $stmt_article->close();
                 }
                 ?>
             </div>

@@ -2,7 +2,13 @@
 session_start();
 include_once 'nav.php';
 $warning_query = "select * from warning order by id desc";
-$warning_result = mysqli_query($connect, $warning_query);
+$stmt_warning = $connect->prepare($warning_query);
+if ($stmt_warning) {
+    $stmt_warning->execute();
+    $warning_result = $stmt_warning->get_result();
+} else {
+    $warning_result = null;
+}
 ?>
 
 
@@ -32,7 +38,8 @@ $warning_result = mysqli_query($connect, $warning_query);
                     <tbody>
                     <?php
                     $SerialNumber = 0;
-                    while ($IPinfo = mysqli_fetch_array($warning_result)) {
+                    if ($warning_result) {
+                        while ($IPinfo = mysqli_fetch_array($warning_result)) {
                         $SerialNumber++;
                         ?>
                         <tr>
@@ -55,6 +62,8 @@ $warning_result = mysqli_query($connect, $warning_query);
                             <td><?php echo $IPinfo['gsd'] ?></td>
                         </tr>
                         <?php
+                        }
+                        $stmt_warning->close();
                     }
                     ?>
                     </tbody>

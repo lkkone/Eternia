@@ -1,8 +1,18 @@
 <?php
 include_once 'head.php';
 $absql = "SELECT * FROM about";
-$resab = mysqli_query($connect, $absql);
-$about = mysqli_fetch_array($resab);
+$stmt_about = $connect->prepare($absql);
+if ($stmt_about) {
+    $stmt_about->execute();
+    $resab = $stmt_about->get_result();
+    $about = mysqli_fetch_array($resab);
+    if (!$about) {
+        $about = [];
+    }
+    $stmt_about->close();
+} else {
+    $about = [];
+}
 ?>
 
 <head>

@@ -3,7 +3,13 @@ session_start();
 
 include_once 'nav.php';
 $ip_query = "select * from iperror order by id desc";
-$ip_result = mysqli_query($connect, $ip_query);
+$stmt_ip = $connect->prepare($ip_query);
+if ($stmt_ip) {
+    $stmt_ip->execute();
+    $ip_result = $stmt_ip->get_result();
+} else {
+    $ip_result = null;
+}
 
 ?>
 
@@ -39,7 +45,8 @@ $ip_result = mysqli_query($connect, $ip_query);
                     <tbody>
                     <?php
                     $SerialNumber = 0;
-                    while ($IPinfo = mysqli_fetch_array($ip_result)) {
+                    if ($ip_result) {
+                        while ($IPinfo = mysqli_fetch_array($ip_result)) {
                         $SerialNumber++;
                         ?>
                         <tr>
@@ -70,6 +77,8 @@ $ip_result = mysqli_query($connect, $ip_query);
                             </td>
                         </tr>
                         <?php
+                        }
+                        $stmt_ip->close();
                     }
                     ?>
                     </tbody>

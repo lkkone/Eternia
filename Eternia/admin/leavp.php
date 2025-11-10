@@ -3,8 +3,18 @@ session_start();
 
 include_once 'nav.php';
 $leavset = "select * from leavset order by id desc";
-$Set = mysqli_query($connect, $leavset);
-$Setinfo = mysqli_fetch_array($Set);
+$stmt_set = $connect->prepare($leavset);
+if ($stmt_set) {
+    $stmt_set->execute();
+    $Set = $stmt_set->get_result();
+    $Setinfo = mysqli_fetch_array($Set);
+    if (!$Setinfo) {
+        $Setinfo = [];
+    }
+    $stmt_set->close();
+} else {
+    $Setinfo = [];
+}
 
 
 ?>

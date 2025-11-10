@@ -3,17 +3,31 @@ session_start();
 include_once 'nav.php';
 
 $nub = "select count(id) as shu from leaving";
-$res = mysqli_query($connect, $nub);
-$leav = mysqli_fetch_array($res);
-$shu = $leav['shu'];
+$stmt_count = $connect->prepare($nub);
+if ($stmt_count) {
+    $stmt_count->execute();
+    $res = $stmt_count->get_result();
+    $leav = mysqli_fetch_array($res);
+    $shu = isset($leav['shu']) ? $leav['shu'] : 0;
+    $stmt_count->close();
+} else {
+    $leav = [];
+    $shu = 0;
+}
 
 include_once 'database.php';
 $liuyan = "SELECT * FROM leaving order by id desc";
 $stmt = $conn->prepare($liuyan);
-$stmt->bind_result($id, $name, $qq, $text, $time, $ip, $city);
-$result = $stmt->execute();
-if (!$result)
-    echo "错误信息：" . $stmt->error;
+if ($stmt) {
+    $stmt->bind_result($id, $name, $qq, $text, $time, $ip, $city);
+    $result = $stmt->execute();
+    if (!$result) {
+        error_log("留言查询失败: " . $stmt->error);
+    }
+} else {
+    error_log("SQL准备失败: " . $conn->error);
+    $stmt = null;
+}
 
 ?>
 
@@ -61,7 +75,8 @@ if (!$result)
                         <tbody>
                             <?php
                             $SerialNumber = 0;
-                            while ($stmt->fetch()) {
+                            if ($stmt) {
+                                while ($stmt->fetch()) {
                                 $SerialNumber++;
 
                                 ?>
@@ -107,6 +122,8 @@ if (!$result)
                                     </td>
                                 </tr>
                                 <?php
+                                }
+                                $stmt->close();
                             }
                             ?>
                         </tbody>

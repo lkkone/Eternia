@@ -9,20 +9,32 @@ $Setinfo = [];
 $jiequ = 100;
 
 $nub = "select count(id) as shu from leaving";
-$res = mysqli_query($connect, $nub);
-if ($res) {
+$stmt_count = $connect->prepare($nub);
+if ($stmt_count) {
+    $stmt_count->execute();
+    $res = $stmt_count->get_result();
     $leav = mysqli_fetch_array($res);
     $shu = isset($leav['shu']) ? $leav['shu'] : 0;
+    $stmt_count->close();
+} else {
+    $leav = [];
+    $shu = 0;
 }
 
 $leavset = "select * from leavset order by id desc";
-$Set = mysqli_query($connect, $leavset);
-if ($Set) {
+$stmt_set = $connect->prepare($leavset);
+if ($stmt_set) {
+    $stmt_set->execute();
+    $Set = $stmt_set->get_result();
     $Setinfo = mysqli_fetch_array($Set);
     if (!$Setinfo) {
         $Setinfo = [];
     }
     $jiequ = isset($Setinfo['jiequ']) ? $Setinfo['jiequ'] : 100;
+    $stmt_set->close();
+} else {
+    $Setinfo = [];
+    $jiequ = 100;
 }
 
 include_once 'head.php';
@@ -314,3 +326,4 @@ if ($stmt) {
 </body>
 
 </html>
+

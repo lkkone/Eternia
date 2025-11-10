@@ -3,8 +3,18 @@ session_start();
 include_once 'nav.php';
 
 $ipchaxun = "select * from iperror";
-$ipres = mysqli_query($connect, $ipchaxun);
-$IPinfo = mysqli_fetch_array($ipres);
+$stmt_ip = $connect->prepare($ipchaxun);
+if ($stmt_ip) {
+    $stmt_ip->execute();
+    $ipres = $stmt_ip->get_result();
+    $IPinfo = mysqli_fetch_array($ipres);
+    if (!$IPinfo) {
+        $IPinfo = [];
+    }
+    $stmt_ip->close();
+} else {
+    $IPinfo = [];
+}
 ?>
 
 <div class="row">

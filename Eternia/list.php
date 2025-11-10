@@ -2,7 +2,13 @@
 include_once 'head.php';
 $time = gmdate("Y-m-d", time() + 8 * 3600);
 $lovelist = "select * from lovelist order by id desc";
-$reslist = mysqli_query($connect, $lovelist);
+$stmt_list = $connect->prepare($lovelist);
+if ($stmt_list) {
+    $stmt_list->execute();
+    $reslist = $stmt_list->get_result();
+} else {
+    $reslist = null;
+}
 ?>
 
 <head>
@@ -23,7 +29,8 @@ $reslist = mysqli_query($connect, $lovelist);
                         class="list_texts <?php if ($text['Animation'] == "1") { ?>animated fadeInUp delay-03s<?php } ?>">
                         <div class="lovelist ">
                             <?php
-                            while ($list = mysqli_fetch_array($reslist)) {
+                            if ($reslist) {
+                                while ($list = mysqli_fetch_array($reslist)) {
                                 ?>
                                 <li class="cike">
                                     <?php if ($list['icon']) { ?><i class="iconfont icon-chenggong2 com"></i> <?php } ?>
@@ -42,6 +49,8 @@ $reslist = mysqli_query($connect, $lovelist);
                                     </li>
                                 </ul>
                                 <?php
+                                }
+                                $stmt_list->close();
                             }
                             ?>
                         </div>

@@ -2,7 +2,13 @@
 session_start();
 include_once 'nav.php';
 $lovelist = "select * from lovelist order by id desc";
-$reslist = mysqli_query($connect, $lovelist);
+$stmt_list = $connect->prepare($lovelist);
+if ($stmt_list) {
+    $stmt_list->execute();
+    $reslist = $stmt_list->get_result();
+} else {
+    $reslist = null;
+}
 ?>
 
 
@@ -35,7 +41,8 @@ $reslist = mysqli_query($connect, $lovelist);
                     <tbody>
                     <?php
                     $SerialNumber = 0;
-                    while ($list = mysqli_fetch_array($reslist)) {
+                    if ($reslist) {
+                        while ($list = mysqli_fetch_array($reslist)) {
                         $SerialNumber++;
                         ?>
                         <tr>
@@ -60,6 +67,8 @@ $reslist = mysqli_query($connect, $lovelist);
                                 </a></td>
                         </tr>
                         <?php
+                        }
+                        $stmt_list->close();
                     }
                     ?>
                     </tbody>

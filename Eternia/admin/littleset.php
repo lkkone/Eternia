@@ -3,7 +3,13 @@ session_start();
 
 include_once 'nav.php';
 $article = "select * from article order by id desc";
-$resarticle = mysqli_query($connect, $article);
+$stmt_article = $connect->prepare($article);
+if ($stmt_article) {
+    $stmt_article->execute();
+    $resarticle = $stmt_article->get_result();
+} else {
+    $resarticle = null;
+}
 ?>
 
 <link href="/admin/assets/css/vendor/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
@@ -38,7 +44,8 @@ $resarticle = mysqli_query($connect, $article);
                         <tbody>
                         <?php
                         $SerialNumber = 0;
-                        while ($info = mysqli_fetch_array($resarticle)) {
+                        if ($resarticle) {
+                            while ($info = mysqli_fetch_array($resarticle)) {
                             $SerialNumber++;
                             ?>
                             <tr>
@@ -66,6 +73,8 @@ $resarticle = mysqli_query($connect, $article);
                                 </td>
                             </tr>
                             <?php
+                            }
+                            $stmt_article->close();
                         }
                         ?>
                         </tbody>

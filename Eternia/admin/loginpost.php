@@ -1,7 +1,7 @@
 <?php
 session_start();
-@($user = $_POST['adminName']);
-@($pw = $_POST['pw']);
+$user = $_POST['adminName'] ?? '';
+$pw = $_POST['pw'] ?? '';
 include_once "database.php";
 
 $USER = null;
@@ -10,7 +10,7 @@ $Login_pw = null;
 $id = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $USER = mysqli_real_escape_string($conn, $user);
+    $USER = $user;
 
     $sql = "SELECT * FROM login WHERE user = ?";
     $stmt = $conn->prepare($sql);

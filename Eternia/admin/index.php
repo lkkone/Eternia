@@ -9,7 +9,13 @@ if (!isset($_SESSION['loginadmin']) || empty($_SESSION['loginadmin'])) {
 
 include_once 'nav.php';
 $liuyan = "select * from leaving order by id desc limit 0,6";
-$resliuyan = mysqli_query($connect, $liuyan);
+$stmt_liuyan = $connect->prepare($liuyan);
+if ($stmt_liuyan) {
+    $stmt_liuyan->execute();
+    $resliuyan = $stmt_liuyan->get_result();
+} else {
+    $resliuyan = null;
+}
 
 // 注释以下内容即可去除所有提示内容
 
@@ -125,7 +131,8 @@ include_once "lg_info.php";
                         </thead>
                         <tbody>
                             <?php
-                            while ($info = mysqli_fetch_array($resliuyan)) {
+                            if ($resliuyan) {
+                                while ($info = mysqli_fetch_array($resliuyan)) {
                                 ?>
                                 <tr>
                                     <td>
@@ -155,6 +162,8 @@ include_once "lg_info.php";
                                     </td>
                                 </tr>
                                 <?php
+                                }
+                                $stmt_liuyan->close();
                             }
                             ?>
 

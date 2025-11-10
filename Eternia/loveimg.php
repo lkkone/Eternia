@@ -2,7 +2,13 @@
 include_once 'head.php';
 
 $loveimg = "select * from loveimg order by id desc";
-$resImg = mysqli_query($connect, $loveimg);
+$stmt_img = $connect->prepare($loveimg);
+if ($stmt_img) {
+    $stmt_img->execute();
+    $resImg = $stmt_img->get_result();
+} else {
+    $resImg = null;
+}
 ?>
 
 <head>
