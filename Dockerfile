@@ -4,7 +4,7 @@ FROM docker.1ms.run/library/php:8.1.31-fpm-alpine3.21
 RUN docker-php-ext-install pdo_mysql mysqli
 
 # 拷贝代码
-COPY ./likegirl-stable/ /app
+COPY ./Eternia/ /app
 
 # 设置工作目录
 WORKDIR /app
